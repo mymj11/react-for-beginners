@@ -1,0 +1,73 @@
+<!-- 바닐라 JS 어플리케이션 만들기
+버튼을 몇 번 클릭했는지 세는 어플
+React JS로 개선할 수 있는 점들이 보일 것이다.
+
+개발 순서
+1. HTML을 만들자.
+2. 자바스크립트에서 가져오자.
+3. event를 감지하자.
+4. 데이터를 업데이트하자.
+5. HTML을 업데이트 하자.
+
+하지만 이런 방법은 계속 가져와서 계속 event listener를 달고
+handleClick 만들고 handleSecondClick 만들고... 복잡해진다.
+그래서 React JS를 사용하자.
+
+바닐라 JS에서는 HTML을 먼저 만들고, 그걸 자바스크립트로 가져와서 HTML을 수정하는 식이다.
+
+!+tab키를 누르면 아래와 같이 자동 생성된다.
+1. interactive UI를 바닐라 JS로 만들기 위해서 HTML을 만들자. -->
+<!DOCTYPE html>
+<html>
+    <body>
+        <!-- 5. 클릭의 갯수를 세고 싶다. 
+        0부터 시작하자. 
+        누군가 여길 클릭하면 카운터를 하나 가지고 이를 증가시켜야 한다.
+        카운터를 만들어 보자.-->
+        <span>Total clicks: 0</span>
+
+        <button id="btn">Click me</button>
+    </body>
+    
+    <!-- 2. 자바스크립에서 버튼을 가져오자. -->
+    <script>
+        // 6. 카운터를 만들어 보자. 0부터 시작하자. 
+        // 누군가 클릭하면 counter를 가져와서 counter = counter + 1
+        let counter = 0;
+
+        const button = document.getElementById("btn");
+        // const button = document.querySelector("button")
+        //이걸 버튼이 많은 어플리케이션에서 쓰면 제대로 작동하지 않을 것이다.
+        //어떤 버튼을 선택해야 하는지 모르니까. 그래서 대부분의 경우 id를 둔다.
+        //btn으로 바꾸고 getElementById로 바꾸자.
+
+        // 7. 페이지에 반영되기 위해서 위의 span을 가져오자.
+        const span = document.querySelector("span");
+
+        // 4. click에 대응할 function을 만들자.
+        function handleClick(){
+            counter = counter + 1;
+            //데이터를 업데이트 하자.
+            //개발자 모드 콘솔 창에 counter를 치면 난 3이 나온다.(쌤은 8이 나온다고 함.)
+            //하지만 아직까지 페이지에 반영되지 않는다.
+            //왜냐하면 데이터가  let counter = 0; 여기서 바뀌더라도 html이 새로고침되지 않기 때문이다.
+            //그래서 위의 <span>을 가져와야 한다.
+            
+            // 8. 여기 와서 span.innerText를 새로운 counter로 두자.
+            // span.innerText = counter;
+            //이제 화면 페이지에서 click me를 누르면 (텍스트 없이) 숫자가 1씩 올라간다.
+            //하지만 원래 있던 Total clicks: 0 텍스트가 사라진다.
+
+            //HTML을 업데이트 하자.
+            //이전 텍스트를 기억하고 계속 유지시키자.
+            span.innerText = `Total clicks: ${counter}`;
+            //이제 click me를 누르면 옆에 total clicks: 숫자가 1씩 증가하는 텍스트가 보여진다.
+            //개발자 모드 elements 창을 보면 코드 속의 total clicks: 숫자가 같이 올라가는 것을 확인할 수 있다.
+        }
+        
+        // 3. button.addEventListener로 두고, click event를 감지할 것이다.
+        // 4-1. function 이름을 붙여넣자.
+        button.addEventListener("click", handleClick);
+    </script>
+</html>
+
